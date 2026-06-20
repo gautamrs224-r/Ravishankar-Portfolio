@@ -1,0 +1,135 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ----------------------------------------------------------------------
+   BASE LAYER
+   ---------------------------------------------------------------------- */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-white font-sans;
+    background-image:
+      radial-gradient(circle at 80% 8%, rgba(168, 85, 247, 0.18), transparent 42%),
+      radial-gradient(circle at 15% 15%, rgba(139, 92, 246, 0.09), transparent 40%),
+      radial-gradient(circle at 90% 0%, rgba(59, 130, 246, 0.07), transparent 35%);
+    background-attachment: fixed;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display;
+  }
+
+  /* Custom scrollbar to match the dark neon theme */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #050816;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #8b5cf6, #3b82f6);
+    border-radius: 8px;
+  }
+
+  /* Respect reduced-motion preferences across the whole site */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* ----------------------------------------------------------------------
+   COMPONENT LAYER — reusable design primitives
+   ---------------------------------------------------------------------- */
+@layer components {
+  /* Glassmorphism card used throughout the site — Dark Glass Navy @ 65% + blur(15px) */
+  .glass-card {
+    @apply border border-white/[0.08] rounded-2xl;
+    background-color: rgba(16, 24, 43, 0.65);
+    backdrop-filter: blur(15px);
+  }
+
+  .glass-card-hover {
+    @apply glass-card transition-all duration-300 hover:-translate-y-1;
+  }
+  .glass-card-hover:hover {
+    border-color: rgba(139, 92, 246, 0.4);
+    box-shadow: 0 0 15px rgba(168, 85, 247, 0.35), 0 0 40px rgba(168, 85, 247, 0.15);
+  }
+
+  /* Section heading eyebrow label, e.g. "MY SKILLS" */
+  .eyebrow {
+    @apply inline-flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.25em];
+    color: #A855F7;
+  }
+
+  .eyebrow::before,
+  .eyebrow::after {
+    content: "";
+    @apply h-px w-6;
+    background: linear-gradient(90deg, #8B5CF6, #3B82F6);
+  }
+
+  /* Purple → violet → blue gradient text, reused for headings and accents */
+  .gradient-text {
+    background: linear-gradient(90deg, #A855F7 0%, #8B5CF6 40%, #3B82F6 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Primary CTA button */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3.5 font-semibold text-white transition-all duration-300 hover:scale-[1.03] active:scale-[0.98];
+    background: linear-gradient(90deg, #8B5CF6, #3B82F6);
+  }
+  .btn-primary:hover {
+    box-shadow: 0 0 15px rgba(168, 85, 247, 0.35), 0 0 40px rgba(168, 85, 247, 0.15);
+  }
+
+  /* Secondary / outline button */
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-transparent px-6 py-3.5 font-semibold text-white transition-all duration-300 hover:scale-[1.03] active:scale-[0.98];
+    border: 1px solid #8B5CF6;
+  }
+  .btn-secondary:hover {
+    background: rgba(139, 92, 246, 0.15);
+  }
+
+  /* Generic section wrapper for consistent vertical rhythm + padding */
+  .section {
+    @apply relative w-full px-5 sm:px-8 lg:px-16 py-20 sm:py-24 lg:py-28;
+  }
+
+  .section-inner {
+    @apply mx-auto w-full max-w-7xl;
+  }
+
+  /* Pill / tag badge (tech stack chips, status pills) */
+  .badge-pill {
+    @apply inline-flex items-center gap-1.5 rounded-full border border-white/[0.08] px-3 py-1.5 text-xs font-medium;
+    background-color: rgba(16, 24, 43, 0.65);
+    color: #94A3B8;
+  }
+}
+
+/* ----------------------------------------------------------------------
+   UTILITY LAYER — small one-off helpers
+   ---------------------------------------------------------------------- */
+@layer utilities {
+  .text-shadow-glow {
+    text-shadow: 0 0 30px rgba(168, 85, 247, 0.5);
+  }
+
+  .mask-fade-b {
+    mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+  }
+}
