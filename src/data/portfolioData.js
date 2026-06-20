@@ -15,15 +15,15 @@ export const PROFILE = {
   tagline:
     "I build beautiful, user-friendly and high-performance web applications using the MERN stack.",
   location: "India",
-  education: "B.Tech (CSE)",
+  education: "BSc. Computer Science (CS)",
   status: "Open to Work",
-  email: "ravishankar.dev@gmail.com",
-  phone: "+91 98765 43210",
-  cityRegion: "Bangalore, Karnataka, India",
+  email: "gautamr.s155@gmail.com",
+  phone: "+91 7021065645",
+  cityRegion: "Mumbai, Maharashtra, India",
   resumeUrl: "/Ravishankar_Gautam_Resume.pdf",
   social: {
     github: "https://github.com/gautamrs224-r/",
-    linkedin: "https://linkedin.com/in/ravishankar-dev",
+    linkedin: "www.linkedin.com/in/ravishankar-gautam-1136a2403",
     twitter: "https://twitter.com/ravishankar_dev",
     instagram: "https://instagram.com/ravishankar.dev",
   },
@@ -65,7 +65,7 @@ export const ABOUT = {
   },
   infoCards: [
     { id: "location", label: "Location", value: "India", icon: "MapPin" },
-    { id: "education", label: "Education", value: "B.Tech (CSE)", icon: "GraduationCap" },
+    { id: "education", label: "Education", value: "BSc. Computer Science (CS)", icon: "GraduationCap" },
     { id: "status", label: "Status", value: "Open to Work", icon: "Briefcase", dotColor: "bg-success" },
   ],
   traits: [

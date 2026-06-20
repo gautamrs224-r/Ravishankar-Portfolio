@@ -62,7 +62,7 @@ export default function AboutSection() {
               <div className="glass-card overflow-hidden border-primary/20 p-1">
                 <div className="aspect-[4/3] w-full overflow-hidden rounded-xl bg-gradient-to-br from-primary/20 via-surface to-secondary/10">
                   <img
-                    src="https://res.cloudinary.com/dhgshusfm/image/upload/v1781923738/WhatsApp_Image_2025-07-14_at_04.58.57_1837cbbb_ouencc.jpg"
+                    src="https://res.cloudinary.com/dhgshusfm/image/upload/v1781957260/About_me_nctqq4.png"
                     alt="Ravishankar working at his desk"
                     className="h-full w-full object-cover"
                     loading="lazy"
