@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Download } from "lucide-react";
 import { NAV_LINKS, PROFILE } from "../../data/portfolioData";
@@ -13,10 +14,17 @@ import { scrollToId } from "../../utils/scrollToId";
  *  - Center nav links with active-section highlighting
  *  - Download CV button
  *  - Mobile hamburger menu with slide-down panel
+ *
+ * Nav links point at sections that only exist on the homepage ("/"). If
+ * you're on another route (e.g. /projects) when a link is clicked, we
+ * navigate home first and then scroll once the homepage has mounted,
+ * instead of silently failing to find the target element.
  */
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const sectionIds = useMemo(
     () => NAV_LINKS.map((link) => link.href.replace("#", "")),
@@ -41,12 +49,24 @@ export default function Navbar() {
   const handleNavClick = (href) => {
     const id = href.replace("#", "");
     setIsOpen(false);
-    // Wait a tick so the body-scroll-lock effect actually clears before we
-    // try to scroll — calling scrollToId synchronously while overflow:hidden
-    // is still applied silently does nothing on mobile.
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => scrollToId(id));
-    });
+
+    const scrollAfterPaint = () => {
+      // Wait a tick so the body-scroll-lock effect actually clears before we
+      // try to scroll — calling scrollToId synchronously while overflow:hidden
+      // is still applied silently does nothing on mobile.
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => scrollToId(id));
+      });
+    };
+
+    if (location.pathname !== "/") {
+      // Section doesn't exist on this route — go home first, then scroll
+      // once HomePage has mounted and rendered its sections.
+      navigate("/");
+      setTimeout(scrollAfterPaint, 120);
+    } else {
+      scrollAfterPaint();
+    }
   };
 
   return (
@@ -72,7 +92,7 @@ export default function Navbar() {
         <ul className="hidden lg:flex items-center gap-1 rounded-full border border-white/[0.06] bg-white/[0.02] px-2 py-1.5">
           {NAV_LINKS.map((link) => {
             const id = link.href.replace("#", "");
-            const isActive = activeId === id;
+            const isActive = location.pathname === "/" && activeId === id;
             return (
               <li key={link.href}>
                 <button
@@ -132,7 +152,7 @@ export default function Navbar() {
             <ul className="flex flex-col gap-1 px-5 py-5">
               {NAV_LINKS.map((link) => {
                 const id = link.href.replace("#", "");
-                const isActive = activeId === id;
+                const isActive = location.pathname === "/" && activeId === id;
                 return (
                   <li key={link.href}>
                     <button

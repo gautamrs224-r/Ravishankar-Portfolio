@@ -15,15 +15,15 @@ export const PROFILE = {
   tagline:
     "I build beautiful, user-friendly and high-performance web applications using the MERN stack.",
   location: "India",
-  education: "BSc. Computer Science (CS)",
+  education: "B.Tech (CSE)",
   status: "Open to Work",
-  email: "gautamr.s155@gmail.com",
-  phone: "+91 7021065645",
-  cityRegion: "Mumbai, Maharashtra, India",
+  email: "ravishankar.dev@gmail.com",
+  phone: "+91 98765 43210",
+  cityRegion: "Bangalore, Karnataka, India",
   resumeUrl: "/Ravishankar_Gautam_Resume.pdf",
   social: {
     github: "https://github.com/gautamrs224-r/",
-    linkedin: "www.linkedin.com/in/ravishankar-gautam-1136a2403",
+    linkedin: "https://linkedin.com/in/ravishankar-dev",
     twitter: "https://twitter.com/ravishankar_dev",
     instagram: "https://instagram.com/ravishankar.dev",
   },
@@ -65,7 +65,7 @@ export const ABOUT = {
   },
   infoCards: [
     { id: "location", label: "Location", value: "India", icon: "MapPin" },
-    { id: "education", label: "Education", value: "BSc. Computer Science (CS)", icon: "GraduationCap" },
+    { id: "education", label: "Education", value: "B.Tech (CSE)", icon: "GraduationCap" },
     { id: "status", label: "Status", value: "Open to Work", icon: "Briefcase", dotColor: "bg-success" },
   ],
   traits: [
@@ -162,6 +162,24 @@ export const PROJECTS = [
     tech: ["React", "Tailwind CSS", "Framer Motion"],
     liveUrl: "#",
     githubUrl: "#",
+    // --- Extended fields used by the /projects detail modal ---
+    role: "Solo Developer",
+    duration: "3 weeks",
+    year: "2025",
+    longDescription:
+      "An experimental personal portfolio reimagined as a desktop-style operating system in the browser. Windows, a taskbar, and draggable panels replace the usual scroll-down page, turning the portfolio itself into a small interactive product rather than a static document.",
+    features: [
+      "Draggable, resizable 'windows' for each portfolio section",
+      "Custom taskbar with running-app indicators",
+      "Smooth open/close/minimize animations powered by Framer Motion",
+      "Fully responsive fallback to a normal scrolling layout on mobile",
+    ],
+    challenges:
+      "Getting drag-and-resize behavior to feel native (not janky) while staying performant on lower-end devices was the hardest part — solved by constraining motion calculations to transform/opacity only and avoiding layout-triggering CSS properties during drags.",
+    gallery: [
+      "https://images.unsplash.com/photo-1607705703571-c5a8695f18f6?w=1200&q=80",
+      "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&q=80",
+    ],
   },
   {
     id: "weather-app",
@@ -175,6 +193,23 @@ export const PROJECTS = [
     tech: ["React", "API", "CSS"],
     liveUrl: "#",
     githubUrl: "#",
+    role: "Solo Developer",
+    duration: "1 week",
+    year: "2025",
+    longDescription:
+      "A clean, fast weather lookup tool built to practice consuming a third-party REST API and handling real-world async states (loading, error, empty) properly instead of assuming the happy path.",
+    features: [
+      "City search with debounced input to avoid spamming the API",
+      "Current conditions plus a 5-day forecast view",
+      "Graceful error states for invalid city names and network failures",
+      "Automatic geolocation-based weather on first load (with permission)",
+    ],
+    challenges:
+      "Handling the OpenWeather free-tier rate limits meant adding request debouncing and a small in-memory cache so repeated searches for the same city didn't re-fetch unnecessarily.",
+    gallery: [
+      "https://images.unsplash.com/photo-1530908295418-a12e326966ba?w=1200&q=80",
+      "https://images.unsplash.com/photo-1601134467661-3d775b999c8b?w=1200&q=80",
+    ],
   },
   {
     id: "task-manager",
@@ -188,6 +223,23 @@ export const PROJECTS = [
     tech: ["MERN Stack", "JWT", "Tailwind"],
     liveUrl: "#",
     githubUrl: "#",
+    role: "Solo Developer",
+    duration: "2 weeks",
+    year: "2025",
+    longDescription:
+      "A complete full-stack task manager built to practice the full MERN loop end to end: a MongoDB schema, an Express REST API, JWT-based auth, and a React frontend that consumes it — covering the whole stack rather than just the frontend half.",
+    features: [
+      "Email/password signup and login secured with hashed passwords + JWT",
+      "Full CRUD for tasks: create, edit, mark complete, delete",
+      "Tasks scoped per-user — one account never sees another's data",
+      "Priority levels and due-date sorting",
+    ],
+    challenges:
+      "Keeping auth state in sync between the frontend and a stateless JWT backend was the trickiest part — solved with an axios interceptor that attaches the token automatically and redirects to login on a 401, instead of scattering that logic across every API call.",
+    gallery: [
+      "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=1200&q=80",
+      "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1200&q=80",
+    ],
   },
   {
     id: "chat-app",
@@ -201,6 +253,23 @@ export const PROJECTS = [
     tech: ["MERN Stack", "Socket.io", "Tailwind"],
     liveUrl: "#",
     githubUrl: "#",
+    role: "Solo Developer",
+    duration: "2 weeks",
+    year: "2025",
+    longDescription:
+      "A real-time chat application built to learn WebSockets in practice — going beyond typical request/response REST work into persistent connections, live events, and presence.",
+    features: [
+      "Private 1-on-1 rooms plus group rooms",
+      "Real-time message delivery via Socket.io (no polling)",
+      "Online/offline presence indicators",
+      "Message history persisted in MongoDB and loaded on room join",
+    ],
+    challenges:
+      "Reconnecting cleanly after a dropped connection (phone sleep, network switch) without duplicating messages or losing room membership required careful handling of Socket.io's reconnection events and de-duping on the client.",
+    gallery: [
+      "https://images.unsplash.com/photo-1611606063065-ee7946f0787a?w=1200&q=80",
+      "https://images.unsplash.com/photo-1577563908411-5077b6dc7624?w=1200&q=80",
+    ],
   },
 ];
 

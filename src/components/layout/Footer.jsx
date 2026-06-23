@@ -1,3 +1,4 @@
+import { useNavigate, useLocation } from "react-router-dom";
 import { Github, Linkedin, Mail, Heart } from "lucide-react";
 import { PROFILE, FOOTER_LINKS } from "../../data/portfolioData";
 import { scrollToId } from "../../utils/scrollToId";
@@ -6,15 +7,29 @@ import { scrollToId } from "../../utils/scrollToId";
  * Footer
  * ---------------------------------------------------------------------------
  * Simple footer: brand name, quick links, social icons, and copyright line.
+ * Quick links point at homepage sections, so — like the navbar — clicking
+ * one while on another route (e.g. /projects) navigates home first.
  */
 export default function Footer() {
   const year = new Date().getFullYear();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const socials = [
     { id: "github", label: "GitHub", href: PROFILE.social.github, icon: Github },
     { id: "linkedin", label: "LinkedIn", href: PROFILE.social.linkedin, icon: Linkedin },
     { id: "email", label: "Email", href: `mailto:${PROFILE.email}`, icon: Mail },
   ];
+
+  const handleFooterLinkClick = (href) => {
+    const id = href.replace("#", "");
+    if (location.pathname !== "/") {
+      navigate("/");
+      setTimeout(() => scrollToId(id), 120);
+    } else {
+      scrollToId(id);
+    }
+  };
 
   return (
     <footer className="border-t border-white/[0.08] bg-background">
@@ -37,7 +52,7 @@ export default function Footer() {
             {FOOTER_LINKS.map((link) => (
               <li key={link.href}>
                 <button
-                  onClick={() => scrollToId(link.href.replace("#", ""))}
+                  onClick={() => handleFooterLinkClick(link.href)}
                   className="text-sm text-muted transition-colors hover:text-white"
                 >
                   {link.label}

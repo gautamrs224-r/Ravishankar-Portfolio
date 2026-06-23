@@ -1,34 +1,38 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
-import HeroSection from "./components/sections/HeroSection";
-import AboutSection from "./components/sections/AboutSection";
-import SkillsSection from "./components/sections/SkillsSection";
-import ProjectsSection from "./components/sections/ProjectsSection";
-import JourneyTimeline from "./components/sections/JourneyTimeline";
-import GithubSection from "./components/sections/GithubSection";
-import ContactSection from "./components/sections/ContactSection";
+import ScrollToTop from "./components/layout/ScrollToTop";
+import HomePage from "./pages/HomePage";
+import ProjectsPage from "./pages/ProjectsPage";
 
 /**
  * App
  * ---------------------------------------------------------------------------
- * Top-level page composition. Each section is a self-contained component
- * under src/components/sections/, all driven by content in
- * src/data/portfolioData.js. To reorder sections, just reorder them here.
+ * Top-level router shell. Navbar and Footer are rendered once, outside the
+ * <Routes>, so they persist across page changes instead of re-mounting.
+ *
+ *   "/"          → HomePage   (the original single-page scroll experience)
+ *   "/projects"  → ProjectsPage (full project catalog with click-to-expand
+ *                  case study modals — reached via "View All Projects")
+ *
+ * ScrollToTop resets scroll position to the top whenever the route changes,
+ * since browsers otherwise preserve scroll position across navigations,
+ * which feels broken when jumping between pages.
  */
 export default function App() {
   return (
-    <div className="relative min-h-screen overflow-x-hidden bg-background">
-      <Navbar />
-      <main>
-        <HeroSection />
-        <AboutSection />
-        <SkillsSection />
-        <ProjectsSection />
-        <JourneyTimeline />
-        <GithubSection />
-        <ContactSection />
-      </main>
-      <Footer />
-    </div>
+    <BrowserRouter>
+      <div className="relative min-h-screen overflow-x-hidden bg-background">
+        <ScrollToTop />
+        <Navbar />
+        <main>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/projects" element={<ProjectsPage />} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
+    </BrowserRouter>
   );
 }

@@ -1,15 +1,21 @@
 import { ArrowRight } from "lucide-react";
-import { PROJECTS, PROFILE } from "../../data/portfolioData";
+import { Link } from "react-router-dom";
+import { PROJECTS } from "../../data/portfolioData";
 import ProjectCard from "../ui/ProjectCard";
 import Reveal from "../ui/Reveal";
 
 /**
  * ProjectsSection
  * ---------------------------------------------------------------------------
- * Most important section per the design brief. Responsive grid:
+ * Homepage "Featured Projects" preview. Responsive grid:
  *   Desktop (lg+): 3 columns
  *   Tablet (sm-lg): 2 columns
  *   Mobile (<sm): 1 column
+ *
+ * Each card here keeps its own Live Demo / GitHub buttons (unchanged).
+ * "View All Projects" routes to the dedicated /projects catalog page,
+ * where cards are fully clickable and open a case-study detail modal
+ * instead of linking out directly.
  */
 export default function ProjectsSection() {
   return (
@@ -34,15 +40,10 @@ export default function ProjectsSection() {
           </div>
 
           <Reveal delay={0.2}>
-            <a
-              href={PROFILE.social.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-secondary shrink-0 !py-2.5 text-sm"
-            >
+            <Link to="/projects" className="btn-secondary shrink-0 !py-2.5 text-sm">
               View All Projects
               <ArrowRight size={16} />
-            </a>
+            </Link>
           </Reveal>
         </div>
 

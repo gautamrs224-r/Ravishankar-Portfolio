@@ -7,9 +7,11 @@ A premium, dark-themed, fully responsive MERN developer portfolio built with **R
 ## ✨ Features
 
 - Sticky glass navbar with scroll-spy active states + mobile hamburger menu
-- Full-viewport hero with floating, glowing profile portrait + orbit ring animation
+- Full-viewport hero with floating, glowing profile portrait
 - Animated tech-stack badges and a glass stats card
 - About, Skills, Projects, Journey Timeline, GitHub dashboard, and Contact sections
+- **Dedicated `/projects` catalog page** — every card is clickable and opens a full case-study modal (long description, key features, challenges, gallery, Live Demo/GitHub links). The homepage's "Featured Projects" preview keeps inline Live Demo/GitHub buttons as before; only the full catalog uses the click-to-expand pattern.
+- Live GitHub stats (avatar, bio, repo count, followers, top repos, languages) fetched from the public GitHub REST API at runtime
 - Contact form with real client-side validation (name / email / message)
 - Scroll-triggered fade-up reveals on every section (`prefers-reduced-motion` respected)
 - Fully responsive: 320px mobile → 1440px+ desktop
@@ -26,29 +28,36 @@ ravishankar-portfolio/
 ├── src/
 │   ├── components/
 │   │   ├── layout/
-│   │   │   ├── Navbar.jsx          # Sticky nav, hamburger menu, scroll-spy
-│   │   │   └── Footer.jsx          # Brand, links, socials, copyright
+│   │   │   ├── Navbar.jsx          # Sticky nav, hamburger menu, scroll-spy, route-aware links
+│   │   │   ├── Footer.jsx          # Brand, links, socials, copyright, route-aware links
+│   │   │   └── ScrollToTop.jsx     # Resets scroll position on route change
 │   │   ├── sections/
 │   │   │   ├── HeroSection.jsx
 │   │   │   ├── AboutSection.jsx
 │   │   │   ├── SkillsSection.jsx
-│   │   │   ├── ProjectsSection.jsx
+│   │   │   ├── ProjectsSection.jsx       # Homepage "Featured Projects" preview (4 cards)
 │   │   │   ├── JourneyTimeline.jsx
 │   │   │   ├── GithubSection.jsx
 │   │   │   └── ContactSection.jsx
 │   │   └── ui/
-│   │       ├── ProfileOrbit.jsx    # Floating portrait + glow + orbit ring
-│   │       ├── ProjectCard.jsx     # Reusable project card
-│   │       └── Reveal.jsx          # Scroll-reveal animation wrapper
+│   │       ├── ProfileOrbit.jsx          # Floating portrait + glow halo
+│   │       ├── ProjectCard.jsx           # Homepage card (has Live Demo/GitHub buttons)
+│   │       ├── ProjectCardClickable.jsx  # /projects catalog card (click-only, opens modal)
+│   │       ├── ProjectDetailModal.jsx    # Full case-study popup (Live Demo/GitHub live here)
+│   │       └── Reveal.jsx                # Scroll-reveal animation wrapper
+│   ├── pages/
+│   │   ├── HomePage.jsx            # "/" — the original single-page scroll experience
+│   │   └── ProjectsPage.jsx        # "/projects" — full clickable project catalog
 │   ├── data/
-│   │   └── portfolioData.js        # ALL site content lives here
+│   │   └── portfolioData.js        # ALL site content lives here, including case-study fields
 │   ├── hooks/
 │   │   ├── useActiveSection.js     # IntersectionObserver-based nav highlighting
-│   │   └── useContactForm.js       # Form state + validation logic
+│   │   ├── useContactForm.js       # Form state + validation logic
+│   │   └── useGithubStats.js       # Live GitHub REST API fetch + fallback logic
 │   ├── utils/
 │   │   ├── iconRegistry.js         # string-name → icon component resolver
 │   │   └── scrollToId.js           # smooth-scroll helper (navbar offset aware)
-│   ├── App.jsx                     # Composes all sections
+│   ├── App.jsx                     # Router shell: BrowserRouter + Routes ("/" and "/projects")
 │   ├── main.jsx                    # React entry point
 │   └── index.css                   # Tailwind layers + reusable utility classes
 ├── index.html
@@ -181,5 +190,30 @@ Drop your PDF into `public/` and update `PROFILE.resumeUrl` in
 - React 18
 - Tailwind CSS 3
 - Framer Motion (animations)
+- React Router DOM 6 (routing for the `/projects` catalog page)
 - lucide-react + react-icons (icons)
 - Vite (build tool)
+
+---
+
+## 📁 Adding a project to the catalog
+
+The `/projects` page and its detail modal read from the same `PROJECTS`
+array in `src/data/portfolioData.js` as the homepage preview — there's
+nothing extra to wire up. Each project supports these optional case-study
+fields, shown in the modal when present:
+
+```js
+{
+  // ...existing fields (id, title, category, description, image, tech, liveUrl, githubUrl)
+  role: "Solo Developer",
+  duration: "2 weeks",
+  year: "2025",
+  longDescription: "A longer paragraph for the detail modal...",
+  features: ["Feature one", "Feature two"],
+  challenges: "What was hard and how you solved it.",
+  gallery: ["https://...screenshot-1.png", "https://...screenshot-2.png"],
+}
+```
+
+Any field you omit is simply skipped in the modal — none of them are required.
