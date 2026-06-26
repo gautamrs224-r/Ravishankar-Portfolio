@@ -65,7 +65,7 @@ export const ABOUT = {
   },
   infoCards: [
     { id: "location", label: "Location", value: "India", icon: "MapPin" },
-    { id: "education", label: "Education", value: "B.Tech (CSE)", icon: "GraduationCap" },
+    { id: "education", label: "Education", value: "BSc. Computer Science (CS)", icon: "GraduationCap" },
     { id: "status", label: "Status", value: "Open to Work", icon: "Briefcase", dotColor: "bg-success" },
   ],
   traits: [
