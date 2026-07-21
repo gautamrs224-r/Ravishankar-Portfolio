@@ -18,9 +18,29 @@ const authHeaders = () => ({
   Authorization: `Bearer ${localStorage.getItem("adminToken") || ""}`,
 });
 
-const handle = async (res) => {
-  const data = await res.json();
-  if (!res.ok) throw new Error(data.message || "Request failed");
+const handle = async (fetchPromise) => {
+  let response;
+  try {
+    response = await fetchPromise;
+  } catch (networkError) {
+    // fetch() itself threw — backend is unreachable or CORS preflight failed
+    throw new Error(
+      "Cannot reach the backend server. Make sure it is running on " +
+      BASE_URL + " and check your .env.local VITE_API_URL setting."
+    );
+  }
+
+  const contentType = response.headers.get("content-type");
+  if (!contentType || !contentType.includes("application/json")) {
+    const text = await response.text();
+    throw new Error(
+      `Server returned non-JSON (status ${response.status}). ` +
+      `Response: ${text.slice(0, 150)}`
+    );
+  }
+
+  const data = await response.json();
+  if (!response.ok) throw new Error(data.message || "Request failed");
   return data;
 };
 

@@ -29,7 +29,8 @@ export default function AdminLogin() {
       loginSuccess(res.token);
       navigate("/admin/dashboard", { replace: true });
     } catch (err) {
-      setError(err.message || "Invalid credentials");
+      console.error("Login error:", err);
+      setError(err.message || "Login failed. Check console for details.");
     } finally {
       setLoading(false);
     }
